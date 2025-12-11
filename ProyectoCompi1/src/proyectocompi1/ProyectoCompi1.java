@@ -15,7 +15,8 @@ public class ProyectoCompi1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Hola Mundo");
+        ventanaPrincipal VP = new ventanaPrincipal();
+        VP.setVisible(true);
     }
     
 }

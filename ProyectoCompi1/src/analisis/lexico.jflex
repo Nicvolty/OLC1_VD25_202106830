@@ -7,13 +7,6 @@ import java_cup.runtime.Symbol;
 %{
 
 /* Método para decodificar secuencias de escape dentro de cadenas */
-private String unescape(String s) {
-    return s
-        .replace("\\n", "\n")
-        .replace("\\t", "\t")
-        .replace("\\\"", "\"")
-        .replace("\\'", "'")
-        .replace("\\\\", "\\");
 
 %}
 
@@ -76,7 +69,7 @@ ID = [a-zA-Z][a-zA-Z0-9]*
 <YYINITIAL> {CADENA} {
     String cadena = yytext();
     cadena = cadena.substring(1, cadena.length()-1); // quitar comillas
-    cadena = unescape(cadena);  // <-- decodificar
+    //cadena = unescape(cadena);  // <-- decodificar
     return new Symbol(sym.CADENA, yyline, yycolumn, cadena);
     }
 <YYINITIAL> {TRUE} {return new Symbol(sym.TRUE, yyline, yycolumn,yytext());}

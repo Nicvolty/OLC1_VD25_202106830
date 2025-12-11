@@ -5,6 +5,7 @@
 package instrucciones;
 import abstracto.Instruccion;
 import Simbolo.*;
+import excepciones.Errores;
 /**
  *
  * @author manue

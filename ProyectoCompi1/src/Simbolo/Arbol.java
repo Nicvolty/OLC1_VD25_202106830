@@ -22,6 +22,12 @@ public class Arbol {
         this.errores = new LinkedList<>();
         this.consolas = "";
     }
+    public Arbol() {
+    this.instrucciones = new LinkedList<>();
+    this.tablaGlobal = new tablaSimbolos();
+    this.errores = new LinkedList<>();
+    this.consolas = "";
+}
 
     public LinkedList<Instruccion> getInstrucciones() {
         return instrucciones;
