@@ -32,7 +32,10 @@ PAR2 = ")"
 MAS = "+"
 MENOS = "-"
 IGUAL = "="
+POTENCIA = "**"
 MULTIPLICACION = "*"
+DIVISION = "/"
+MODULO = "%"
 DOSPUNTOS = ":"
 
 FINCADENA = ";"
@@ -85,5 +88,8 @@ ID = [a-zA-Z][a-zA-Z0-9]*
 <YYINITIAL> {MAS} {return new Symbol(sym.MAS, yyline, yycolumn, yytext());}
 <YYINITIAL> {MENOS} {return new Symbol(sym.MENOS, yyline, yycolumn, yytext());}
 <YYINITIAL> {IGUAL} {return new Symbol(sym.IGUAL, yyline, yycolumn, yytext());}
+<YYINITIAL> {POTENCIA} {return new Symbol(sym.POTENCIA, yyline, yycolumn, yytext());}
 <YYINITIAL> {MULTIPLICACION} {return new Symbol(sym.MULTIPLICACION, yyline, yycolumn,yytext());}
+<YYINITIAL> {DIVISION} {return new Symbol(sym.DIVISION, yyline, yycolumn,yytext());}
+<YYINITIAL> {MODULO} {return new Symbol(sym.MODULO, yyline, yycolumn, yytext());}
 <YYINITIAL> {DOSPUNTOS} {return new Symbol(sym.DOSPUNTOS, yyline, yycolumn,yytext());}

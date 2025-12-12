@@ -11,15 +11,18 @@ public class sym {
   public static final int MENOS = 11;
   public static final int MULTIPLICACION = 13;
   public static final int CADENA = 2;
-  public static final int IGUAL = 14;
+  public static final int IGUAL = 17;
   public static final int CHAR = 5;
   public static final int FINCADENA = 6;
   public static final int DECIMAL = 4;
-  public static final int TRUE = 16;
+  public static final int DIVISION = 14;
+  public static final int POTENCIA = 15;
+  public static final int TRUE = 19;
+  public static final int MODULO = 16;
   public static final int UMENOS = 12;
-  public static final int EQUALS = 15;
+  public static final int EQUALS = 18;
   public static final int EOF = 0;
-  public static final int FALSE = 17;
+  public static final int FALSE = 20;
   public static final int PRINT = 7;
   public static final int error = 1;
   public static final int PAR2 = 9;
@@ -41,6 +44,9 @@ public class sym {
   "MENOS",
   "UMENOS",
   "MULTIPLICACION",
+  "DIVISION",
+  "POTENCIA",
+  "MODULO",
   "IGUAL",
   "EQUALS",
   "TRUE",

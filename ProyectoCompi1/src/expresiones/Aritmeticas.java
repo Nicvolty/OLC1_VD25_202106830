@@ -54,6 +54,14 @@ public class Aritmeticas extends Instruccion {
                 this.negacion(Unico);
             case RESTA ->
                 this.resta(opIzq, opDer);
+            case MULTIPLICACION ->
+                this.multiplicacion(opIzq, opDer);
+            case DIVISION ->
+                this.division(opIzq, opDer);
+            case POTENCIA ->
+                this.potencia(opIzq,opDer);
+            case MODULO ->
+                this.modulo(opIzq,opDer);
             default -> 
                 new Errores("ERROR semantico", "operando inexistente", this.linea, this.col);
                  
@@ -190,7 +198,7 @@ public class Aritmeticas extends Instruccion {
                     }
                     case DECIMAL ->{
                      this.tipo.setTipo(tipoDato.DECIMAL);
-                     return (double) op1 - (double) op2;
+                     return (int) op1 - (double) op2;
                     }
                     case CARACTER ->{
                      this.tipo.setTipo(tipoDato.ENTERO);
@@ -205,7 +213,7 @@ public class Aritmeticas extends Instruccion {
                  switch(tipo2){
                     case ENTERO ->{
                      this.tipo.setTipo(tipoDato.DECIMAL);
-                     return (double) op1 - (double) op2;
+                     return (double) op1 - (int) op2;
                     }
                     case DECIMAL ->{
                      this.tipo.setTipo(tipoDato.DECIMAL);
@@ -240,4 +248,211 @@ public class Aritmeticas extends Instruccion {
             }
         }
     }
-}
+    public Object multiplicacion(Object op1, Object op2){
+        var tipo1 = this.operando1.tipo.getTipo();
+        var tipo2 = this.operando2.tipo.getTipo();
+        
+        switch(tipo1){
+            case ENTERO ->{
+                   switch(tipo2){
+                       case ENTERO ->{
+                         this.tipo.setTipo(tipoDato.ENTERO);
+                         return (int) op1 * (int) op2;
+                       }
+                       case DECIMAL ->{
+                         this.tipo.setTipo(tipoDato.DECIMAL);
+                         return (int) op1 * (double) op2;
+                       }
+                       case CARACTER ->{
+                         this.tipo.setTipo(tipoDato.ENTERO);
+                         return (int) op1 * (int)((Character) op2);
+                       }
+                       default -> {
+                        return new Errores("ERROR semantico", "multiplicacion erronea", this.linea, this.col);
+                       }
+                   }
+            }
+            case DECIMAL ->{
+                    switch(tipo2){
+                       case ENTERO ->{
+                         this.tipo.setTipo(tipoDato.DECIMAL);
+                         return (double) op1 * (int) op2;
+                       }
+                       case DECIMAL ->{
+                         this.tipo.setTipo(tipoDato.DECIMAL);
+                         return (double) op1 * (double) op2;
+                       }
+                       case CARACTER ->{
+                         this.tipo.setTipo(tipoDato.DECIMAL);
+                         return (double) op1 * (double)((Character) op2);
+                       }
+                       default -> {
+                        return new Errores("ERROR semantico", "multiplicacion erronea", this.linea, this.col);
+                       }
+                   }
+            }
+            case CARACTER ->{
+                    switch(tipo2){
+                       case ENTERO ->{
+                         this.tipo.setTipo(tipoDato.ENTERO);
+                         return (int)((Character) op1) * (int) op2;
+                       }
+                       case DECIMAL ->{
+                         this.tipo.setTipo(tipoDato.DECIMAL);
+                         return (double)((Character) op1) * (double) op2;
+                       }
+                       default -> {
+                        return new Errores("ERROR semantico", "multiplicacion erronea", this.linea, this.col);
+                       }
+                   }
+            }
+            default ->{
+            return new Errores("ERROR semantico", "multiplicacion erronea", this.linea, this.col);
+            }
+        }
+    }
+    public Object division(Object op1, Object op2){
+        var tipo1 = this.operando1.tipo.getTipo();
+        var tipo2 = this.operando2.tipo.getTipo();
+        
+        switch(tipo1){
+            case ENTERO ->{
+                switch(tipo2){
+                    case ENTERO ->{  
+                        this.tipo.setTipo(tipoDato.DECIMAL);
+                        return (double)(int)op1 / (double)(int)op2;
+                    }
+                    case DECIMAL ->{  
+                        this.tipo.setTipo(tipoDato.DECIMAL);
+                        return (double)(int)op1 / (double)op2;
+                    }
+                    case CARACTER ->{  
+                        this.tipo.setTipo(tipoDato.DECIMAL);
+                        return (double)(int)op1 / (int)((Character)op2);
+                    }
+                    default ->{
+                    return new Errores("ERROR semantico", "division erronea", this.linea, this.col);
+                    }
+                }
+            }
+            case DECIMAL ->{
+               switch(tipo2){
+                    case ENTERO ->{  
+                        this.tipo.setTipo(tipoDato.DECIMAL);
+                        return (double)op1 / (int)op2;
+                    }
+                    case DECIMAL ->{  
+                        this.tipo.setTipo(tipoDato.DECIMAL);
+                        return (double)op1 / (double)op2;
+                    }
+                    case CARACTER ->{  
+                        this.tipo.setTipo(tipoDato.DECIMAL);
+                        return (double)op1 / (int)((Character)op2);
+                    }
+                    default ->{
+                    return new Errores("ERROR semantico", "division erronea", this.linea, this.col);
+                    }
+                }
+            }
+            case CARACTER->{
+                 switch(tipo2){
+                     case ENTERO ->{
+                     this.tipo.setTipo(tipoDato.DECIMAL);
+                     return (double)((int)((Character)op1) / (int)op2);
+                     }
+                     case DECIMAL ->{
+                     this.tipo.setTipo(tipoDato.DECIMAL);
+                     return (int)((Character)op1) / (double)op2;
+                     }
+                     default ->{
+                     return new Errores("ERROR semantico", "division erronea", this.linea, this.col);
+                     }
+                 }
+            }
+            default ->{
+            return new Errores("ERROR semantico", "division erronea", this.linea, this.col);
+            }
+        }
+    }
+    public Object potencia(Object op1, Object op2){
+          var tipo1 = this.operando1.tipo.getTipo();
+          var tipo2 = this.operando2.tipo.getTipo();
+          
+          switch(tipo1){
+              case ENTERO ->{
+                  switch(tipo2){
+                      case ENTERO ->{
+                      this.tipo.setTipo(tipoDato.ENTERO);
+                      return (int) Math.pow((int)op1, (int)op2);
+                      }
+                      case DECIMAL ->{
+                      this.tipo.setTipo(tipoDato.DECIMAL);
+                      return (double) Math.pow((int)op1, (double)op2);
+                      }
+                      default ->{
+                       return new Errores("ERROR semantico", "potencia erronea", this.linea, this.col);
+                      }
+                  }
+              }
+              case DECIMAL ->{
+                   switch(tipo2){
+                      case ENTERO ->{
+                      this.tipo.setTipo(tipoDato.DECIMAL);
+                      return  Math.pow((double)op1, (int)op2);
+                      }
+                      case DECIMAL ->{
+                      this.tipo.setTipo(tipoDato.DECIMAL);
+                      return  Math.pow((double)op1, (double)op2);
+                      }
+                      default ->{
+                       return new Errores("ERROR semantico", "potencia erronea", this.linea, this.col);
+                      }
+                  }
+              }
+              default ->{
+               return new Errores("ERROR semantico", "potencia erronea", this.linea, this.col);
+              }
+          }
+    }
+    public Object modulo (Object op1, Object op2){
+       var tipo1 = this.operando1.tipo.getTipo();
+       var tipo2 = this.operando2.tipo.getTipo();
+          
+          switch(tipo1){
+              case ENTERO ->{
+                  switch(tipo2){
+                      case ENTERO ->{
+                      this.tipo.setTipo(tipoDato.DECIMAL);
+                      return (double)((int)op1 % (int)op2);
+                      }
+                      case DECIMAL ->{
+                      this.tipo.setTipo(tipoDato.DECIMAL);
+                      return (double)((int)op1 % (double)op2);
+                      }
+                      default ->{
+                       return new Errores("ERROR semantico", "potencia erronea", this.linea, this.col);
+                      }
+                  }
+              }
+              case DECIMAL ->{
+                   switch(tipo2){
+                      case ENTERO ->{
+                      this.tipo.setTipo(tipoDato.DECIMAL);
+                      return (double)((double)op1 % (int)op2);
+                      }
+                      case DECIMAL ->{
+                      this.tipo.setTipo(tipoDato.DECIMAL);
+                      return (double)op1 % (double)op2;
+                      }
+                      default ->{
+                       return new Errores("ERROR semantico", "potencia erronea", this.linea, this.col);
+                      }
+                  }
+              }
+              default ->{
+               return new Errores("ERROR semantico", "potencia erronea", this.linea, this.col);
+              }
+          }
+    }
+    }
+
