@@ -8,12 +8,9 @@ package expresiones;
  *
  * @author manue
  */
-public enum OperadoresRelacionales {
-    EQUALS,
-    NOTEQUALS,
-    MENORQ,
-    MENORIGUALQ,
-    MAYORQ,
-    MAYORIGUALQ
-    
+public enum OperadoresLogicos {
+    OR,
+    AND,
+    XOR,
+    NOT
 }

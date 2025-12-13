@@ -37,8 +37,16 @@ public class Relacionales extends Instruccion{
         return switch (relacional) {
             case EQUALS ->
                 this.equals(condIzq, condDer);
-            case MENOR ->
-                this.menor(condIzq, condDer);
+            case NOTEQUALS ->
+                this.notequals(condIzq, condDer);
+            case MENORQ ->
+                this.menorq(condIzq, condDer);
+            case MENORIGUALQ ->
+                this.menorIgualq(condIzq, condDer);
+            case MAYORQ ->
+                this.mayorq(condIzq, condDer);
+            case MAYORIGUALQ ->
+                this.mayorIgualq(condIzq, condDer);
             default ->
                 new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
         };
@@ -48,65 +56,435 @@ public class Relacionales extends Instruccion{
         var comparando1 = this.cond1.tipo.getTipo();
         var comparando2 = this.cond2.tipo.getTipo();
 
-        return switch (comparando1) {
-            case ENTERO ->
+         switch (comparando1) {
+            case ENTERO ->{
+                 switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 == (int) comp2;
+                    }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 == (double) comp2;
+                    }
+                    case CARACTER ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 == (int)((Character) comp2);
+                    }
+                    default ->{
+                       return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+                }
+            }
+            }
+            case DECIMAL ->{
                 switch (comparando2) {
-                    case ENTERO ->
-                        (int) comp1 == (int) comp2;
-                    case DECIMAL ->
-                        (int) comp1 == (double) comp2;
-                    default ->
-                        new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
-                };
-            case DECIMAL ->
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 == (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 == (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (double) comp1 == (double)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            case CARACTER ->{
+            switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (int)((Character) comp1) == (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) ((Character)comp1) == (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (int)((Character) comp1) == (int)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            case BOOLEANO ->{
+                 switch(comparando2){
+                     case BOOLEANO->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (boolean)comp1 == (boolean)comp2;
+                     }
+                     default ->{
+                      return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+                     }
+                 }
+            }
+            case CADENA ->{
                 switch (comparando2) {
-                    case ENTERO ->
-                        (double) comp1 == (int) comp2;
-                    case DECIMAL ->
-                        (double) comp1 == (double) comp2;
-                    default ->
-                        new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
-                };
-            case CADENA ->
-                switch (comparando2) {
-                    case CADENA ->
-                        comp1.toString().equalsIgnoreCase(comp2.toString());
-                    default ->
-                        new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
-                };
-            default ->
-                new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
-        };
+                    case CADENA ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return comp1.toString().equalsIgnoreCase(comp2.toString());
+            }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+            }
+            }
+            default ->{
+             return   new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+        }
     }
-
-    public Object menor(Object comp1, Object comp2) {
-        var comparando1 = this.cond1.tipo.getTipo();
+    public Object notequals(Object comp1, Object comp2){
+     var comparando1 = this.cond1.tipo.getTipo();
         var comparando2 = this.cond2.tipo.getTipo();
 
-        return switch (comparando1) {
-            case ENTERO ->
+         switch (comparando1) {
+            case ENTERO ->{
+                 switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 != (int) comp2;
+                    }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 != (double) comp2;
+                    }
+                    case CARACTER ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 != (int)((Character) comp2);
+                    }
+                    default ->{
+                       return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+                }
+            }
+            }
+            case DECIMAL ->{
                 switch (comparando2) {
-                    case ENTERO ->
-                        (int) comp1 < (int) comp2;
-                    case DECIMAL ->
-                        (int) comp1 < (double) comp2;
-                    default ->
-                        new Errores("SEMANTICO", "Relacional invaldo",
-                        this.linea, this.col);
-                };
-            case DECIMAL ->
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 != (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 != (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (double) comp1 != (double)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            case CARACTER ->{
+            switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (int)((Character) comp1) != (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) ((Character)comp1) != (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (int)((Character) comp1) != (int)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            case CADENA ->{
                 switch (comparando2) {
-                    case ENTERO ->
-                        (double) comp1 < (int) comp2;
-                    case DECIMAL ->
-                        (double) comp1 < (double) comp2;
-                    default ->
-                        new Errores("SEMANTICO", "Relacional invaldo",
-                        this.linea, this.col);
-                };
-            default ->
-                new Errores("SEMANTICO", "Relacional invaldo",
-                this.linea, this.col);
-        };
+                    case CADENA ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return !comp1.toString().equalsIgnoreCase(comp2.toString());
+            }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+            }
+            }
+            default ->{
+             return   new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+        }
+    }
+    public Object menorq(Object comp1, Object comp2) {
+         var comparando1 = this.cond1.tipo.getTipo();
+        var comparando2 = this.cond2.tipo.getTipo();
+
+         switch (comparando1) {
+            case ENTERO ->{
+                 switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 < (int) comp2;
+                    }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 < (double) comp2;
+                    }
+                    case CARACTER ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 < (int)((Character) comp2);
+                    }
+                    default ->{
+                       return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+                }
+            }
+            }
+            case DECIMAL ->{
+                switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 < (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 < (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (double) comp1 < (double)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            case CARACTER ->{
+            switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (int)((Character) comp1) < (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) ((Character)comp1) < (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (int)((Character) comp1) < (int)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            default ->{
+             return   new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+        }
+    }
+    public Object menorIgualq(Object comp1, Object comp2){
+     var comparando1 = this.cond1.tipo.getTipo();
+        var comparando2 = this.cond2.tipo.getTipo();
+
+         switch (comparando1) {
+            case ENTERO ->{
+                 switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 <= (int) comp2;
+                    }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 <= (double) comp2;
+                    }
+                    case CARACTER ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 <= (int)((Character) comp2);
+                    }
+                    default ->{
+                       return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+                }
+            }
+            }
+            case DECIMAL ->{
+                switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 <= (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 <= (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (double) comp1 <= (double)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            case CARACTER ->{
+            switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (int)((Character) comp1) <= (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) ((Character)comp1) <= (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (int)((Character) comp1) <= (int)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            default ->{
+             return   new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+        }
+    }
+    public Object mayorq(Object  comp1, Object comp2){
+     var comparando1 = this.cond1.tipo.getTipo();
+        var comparando2 = this.cond2.tipo.getTipo();
+
+         switch (comparando1) {
+            case ENTERO ->{
+                 switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 > (int) comp2;
+                    }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 > (double) comp2;
+                    }
+                    case CARACTER ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 > (int)((Character) comp2);
+                    }
+                    default ->{
+                       return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+                }
+            }
+            }
+            case DECIMAL ->{
+                switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 > (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 > (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (double) comp1 > (double)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            case CARACTER ->{
+            switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (int)((Character) comp1) > (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) ((Character)comp1) > (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (int)((Character) comp1) > (int)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            default ->{
+             return   new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+        }
+    }
+    public Object mayorIgualq(Object comp1, Object comp2){
+         var comparando1 = this.cond1.tipo.getTipo();
+        var comparando2 = this.cond2.tipo.getTipo();
+
+         switch (comparando1) {
+            case ENTERO ->{
+                 switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 >= (int) comp2;
+                    }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 >= (double) comp2;
+                    }
+                    case CARACTER ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                       return (int) comp1 >= (int)((Character) comp2);
+                    }
+                    default ->{
+                       return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+                }
+            }
+            }
+            case DECIMAL ->{
+                switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 >= (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) comp1 >= (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (double) comp1 >= (double)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            case CARACTER ->{
+            switch (comparando2) {
+                    case ENTERO ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (int)((Character) comp1) >= (int) comp2;
+            }
+                    case DECIMAL ->{
+                        this.tipo.setTipo(tipoDato.BOOLEANO);
+                        return (double) ((Character)comp1) >= (double) comp2;
+            }
+                    case CARACTER ->{
+                       this.tipo.setTipo(tipoDato.BOOLEANO); 
+                       return (int)((Character) comp1) >= (int)((Character)comp2); 
+                    }
+                    default ->{
+                        return new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+                }
+            }
+            default ->{
+             return   new Errores("SEMANTICO", "Relacional Invalido", this.linea, this.col);
+            }
+        }
     }
 }

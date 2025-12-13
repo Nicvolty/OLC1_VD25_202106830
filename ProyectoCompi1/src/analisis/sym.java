@@ -8,25 +8,34 @@ package analisis;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
+  public static final int AND = 24;
   public static final int MENOS = 11;
   public static final int MULTIPLICACION = 13;
   public static final int CADENA = 2;
-  public static final int IGUAL = 17;
+  public static final int IGUAL = 27;
+  public static final int OR = 23;
   public static final int CHAR = 5;
   public static final int FINCADENA = 6;
   public static final int DECIMAL = 4;
   public static final int DIVISION = 14;
+  public static final int NOT = 26;
   public static final int POTENCIA = 15;
-  public static final int TRUE = 19;
+  public static final int TRUE = 28;
+  public static final int MENORQ = 19;
   public static final int MODULO = 16;
   public static final int UMENOS = 12;
-  public static final int EQUALS = 18;
+  public static final int MAYORIGUALQ = 22;
+  public static final int NOTEQUALS = 18;
+  public static final int EQUALS = 17;
+  public static final int MAYORQ = 21;
   public static final int EOF = 0;
-  public static final int FALSE = 20;
+  public static final int FALSE = 29;
   public static final int PRINT = 7;
   public static final int error = 1;
   public static final int PAR2 = 9;
   public static final int PAR1 = 8;
+  public static final int XOR = 25;
+  public static final int MENORIGUALQ = 20;
   public static final int ENTERO = 3;
   public static final int MAS = 10;
   public static final String[] terminalNames = new String[] {
@@ -47,8 +56,17 @@ public class sym {
   "DIVISION",
   "POTENCIA",
   "MODULO",
-  "IGUAL",
   "EQUALS",
+  "NOTEQUALS",
+  "MENORQ",
+  "MENORIGUALQ",
+  "MAYORQ",
+  "MAYORIGUALQ",
+  "OR",
+  "AND",
+  "XOR",
+  "NOT",
+  "IGUAL",
   "TRUE",
   "FALSE"
   };

@@ -17,6 +17,7 @@ public class ProyectoCompi1 {
         // TODO code application logic here
         ventanaPrincipal VP = new ventanaPrincipal();
         VP.setVisible(true);
+        VP.setTitle("JavaUsac");
     }
     
 }

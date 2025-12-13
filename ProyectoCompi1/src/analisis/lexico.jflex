@@ -31,6 +31,16 @@ PAR1 = "("
 PAR2 = ")"
 MAS = "+"
 MENOS = "-"
+EQUALS = "=="
+NOTEQUALS = "!="
+MENORIGUALQ = "<="
+MAYORIGUALQ = ">="
+OR = "||"
+AND = "&&"
+XOR = "^"
+NOT = "!"
+MENORQ = "<"
+MAYORQ = ">"
 IGUAL = "="
 POTENCIA = "**"
 MULTIPLICACION = "*"
@@ -87,6 +97,16 @@ ID = [a-zA-Z][a-zA-Z0-9]*
 <YYINITIAL> {PAR2} {return new Symbol(sym.PAR2, yyline, yycolumn, yytext());}
 <YYINITIAL> {MAS} {return new Symbol(sym.MAS, yyline, yycolumn, yytext());}
 <YYINITIAL> {MENOS} {return new Symbol(sym.MENOS, yyline, yycolumn, yytext());}
+<YYINITIAL> {EQUALS} {return new Symbol(sym.EQUALS, yyline, yycolumn, yytext());}
+<YYINITIAL> {NOTEQUALS} {return new Symbol(sym.NOTEQUALS, yyline, yycolumn, yytext());}
+<YYINITIAL> {MENORIGUALQ} {return new Symbol(sym.MENORIGUALQ, yyline, yycolumn, yytext());}
+<YYINITIAL> {MAYORIGUALQ} {return new Symbol(sym.MAYORIGUALQ, yyline, yycolumn, yytext());}
+<YYINITIAL> {OR} {return new Symbol(sym.OR, yyline, yycolumn, yytext());}
+<YYINITIAL> {AND} {return new Symbol(sym.AND, yyline, yycolumn, yytext());}
+<YYINITIAL> {XOR} {return new Symbol(sym.XOR, yyline, yycolumn, yytext());}
+<YYINITIAL> {NOT} {return new Symbol(sym.NOT, yyline, yycolumn, yytext());}
+<YYINITIAL> {MENORQ} {return new Symbol(sym.MENORQ, yyline, yycolumn, yytext());}
+<YYINITIAL> {MAYORQ} {return new Symbol(sym.MAYORQ, yyline, yycolumn, yytext());}
 <YYINITIAL> {IGUAL} {return new Symbol(sym.IGUAL, yyline, yycolumn, yytext());}
 <YYINITIAL> {POTENCIA} {return new Symbol(sym.POTENCIA, yyline, yycolumn, yytext());}
 <YYINITIAL> {MULTIPLICACION} {return new Symbol(sym.MULTIPLICACION, yyline, yycolumn,yytext());}
